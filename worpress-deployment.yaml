@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: poc-wordpress
+spec:
+  selector:
+    app: poc-wordpress
+  ports:
+  - port: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-wordpress
+  labels:
+    app: poc-wordpress
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: poc-wordpress
+      labels:
+        app: poc-wordpress
+    spec:
+      containers:
+      - name: poc-wordpress
+        image: wordpress:4.8-apache
+        env:
+          - name: WORDPRESS_DB_HOST
+            value: poc-mysql
+          - name: WORDPRESS_DB_PASSWORD
+            value: 1512199799a00
+        ports:
+          - containerPort: 80
+        volumeMounts:
+          - mountPath: /var/www/html
+            name: poc-wordpress-pv
+      volumes:
+        - name: poc-wordpress-pv
+          persistentVolumeClaim:
+            claimName: poc-wordpress-pvc
+  selector:
+    matchLabels:
+      app: poc-wordpress

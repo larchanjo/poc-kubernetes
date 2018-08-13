@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: poc-tomcat
+spec:
+  selector:
+    app: poc-tomcat
+  ports:
+  - port: 8080
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-tomcat
+  labels:
+    app: poc-tomcat
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: poc-tomcat
+      labels:
+        app: poc-tomcat
+    spec:
+      containers:
+      - name: poc-tomcat
+        image: tomcat
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            port: 8080
+            path: /
+          initialDelaySeconds: 15
+          periodSeconds: 3
+        livenessProbe:
+          httpGet:
+            port: 8080
+            path: /
+          initialDelaySeconds: 30
+          periodSeconds: 30
+      restartPolicy: Always
+      nodeSelector:
+        storageType : ssd
+  selector:
+    matchLabels:
+      app: poc-tomcat

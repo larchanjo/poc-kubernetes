@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: poc-mysql
+spec:
+  selector:
+    app: poc-mysql
+  ports:
+  - port: 3306
+  clusterIP: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poc-mysql
+  labels:
+    app: poc-mysql
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: poc-mysql
+      labels:
+        app: poc-mysql
+    spec:
+      containers:
+      - name: poc-mysql
+        image: mysql:5.6
+        imagePullPolicy: IfNotPresent
+        ports:
+          - containerPort: 3306
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: 1512199799a00
+        volumeMounts:
+          - mountPath: /var/lib/mysql
+            name: poc-mysql-pv
+      volumes:
+        - name: poc-mysql-pv
+          persistentVolumeClaim:
+            claimName: poc-mysql-pvc
+  selector:
+    matchLabels:
+      app: poc-mysql
