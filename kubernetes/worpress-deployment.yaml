@@ -30,7 +30,7 @@ spec:
           - name: WORDPRESS_DB_HOST
             value: poc-mysql
           - name: WORDPRESS_DB_PASSWORD
-            value: 1512199799a00
+            value: 123456
         ports:
           - containerPort: 80
         volumeMounts:

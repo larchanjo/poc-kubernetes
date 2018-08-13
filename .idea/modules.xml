@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/poc-kubernetes.iml" filepath="$PROJECT_DIR$/.idea/poc-kubernetes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../poc-spring-amqp/spring-amqp.iml" filepath="$PROJECT_DIR$/../poc-spring-amqp/spring-amqp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../poc-spring-jms/spring-jms.iml" filepath="$PROJECT_DIR$/../poc-spring-jms/spring-jms.iml" />
     </modules>
   </component>
 </project>

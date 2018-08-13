@@ -31,7 +31,7 @@ spec:
           - containerPort: 3306
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: 1512199799a00
+            value: 123456
         volumeMounts:
           - mountPath: /var/lib/mysql
             name: poc-mysql-pv
